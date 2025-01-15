@@ -7,6 +7,7 @@ import {
     useAppKitAccount,
     useAppKitNetwork,
     useAppKitProvider,
+    useAppKitEvents,
     useDisconnect,
 } from "@reown/appkit/vue"
 
@@ -116,6 +117,7 @@ const { open } = useAppKit()
 const account = useAppKitAccount()
 const appKitNetwork = useAppKitNetwork()
 const appKitWalletProvider = useAppKitProvider<Eip1193Provider>("eip155")
+const appKitEvents = useAppKitEvents()
 
 // -- 5. Local Refs / Reactive data
 const walletClient = ref<AarcEthersEthereumSigner | null>(null)
@@ -146,14 +148,19 @@ async function onClickConnect() {
 
 // -- 9. Watch or onMounted effect to set walletClient
 watch(
-    () => appKitWalletProvider.walletProvider,
+    () => account.value.address,
     async (newProvider) => {
-        if (!newProvider) {
+        const appKitWalletProvider =
+            useAppKitProvider<Eip1193Provider>("eip155")
+        console.log("New provider:", appKitWalletProvider)
+        if (!appKitWalletProvider.walletProvider) {
             walletClient.value = null
             return
         }
         try {
-            const provider = new BrowserProvider(newProvider as Eip1193Provider)
+            const provider = new BrowserProvider(
+                appKitWalletProvider.walletProvider as Eip1193Provider
+            )
             const signer = await provider.getSigner()
             walletClient.value = new AarcEthersEthereumSigner(
                 signer as JsonRpcSigner
