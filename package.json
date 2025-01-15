@@ -1,0 +1,26 @@
+{
+  "name": "widget-demo-vuejs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@aarc-dev/wallet-connector-vuejs": "0.0.2",
+    "@aarc-dev/fundkit-web-sdk": "0.2.2",
+    "@reown/appkit": "^1.6.4",
+    "@reown/appkit-adapter-ethers": "^1.6.4",
+    "ethers": "^6.13.2",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vue-tsc": "^2.2.0"
+  }
+}
